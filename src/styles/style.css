@@ -100,6 +100,7 @@ button {
   align-items: center;
   column-gap: 10px;
   display: flex;
+  font-weight: 600;
 }
 /* =========Layout style====== */
 .layout_section {
@@ -113,7 +114,7 @@ button {
   margin-top: 10px;
 }
 
-.aside_section div {
+.logo_section {
   background-color: var(--primary);
   border-radius: 14px 0 0 14px;
   justify-content: center;
@@ -126,6 +127,24 @@ button {
 .aside_section img {
   height: 44px;
   width: 44px;
+}
+.menu_item_section {
+  margin-top: 30px;
+  padding: 10px;
+}
+.menu_item {
+  background-color: var(--primary);
+  font-size: var(--text-sm);
+  align-items: center;
+  border-radius: 6px;
+  column-gap: 10px;
+  padding: 10px;
+  display: flex;
+  color: #fff;
+}
+.menu_item img {
+  height: 24px;
+  width: 24px;
 }
 .aside_section p {
   font-size: 20px;
@@ -147,8 +166,59 @@ button {
   display: flex;
   height: 64px;
 }
+.header_section .user_detail {
+  display: flex;
+  gap: 16px;
+}
+
 .header_section img {
   border-radius: 50px;
   height: 40px;
   width: 40px;
+}
+.header_section .user_detail button {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: var(--text-sm);
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+/*  */
+.middle_section {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.user_card_section {
+  box-shadow: 3px 3px 18px #cfcfcf55;
+  justify-content: center;
+  border-radius: 10px;
+  align-items: center;
+  padding: 20px 30px;
+  margin: 40px auto;
+  max-width: 500px;
+  column-gap: 20px;
+  display: flex;
+}
+.user_card_section img {
+  object-fit: cover;
+  flex-shrink: 0;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.user_info_section {
+  flex-direction: column;
+  display: flex;
+  row-gap: 10px;
+}
+.user_info_section h1 {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 18px;
+}
+.user_info_section p {
+  font-size: var(--text-sm);
+  color: var(--text-color);
+  font-weight: 700;
 }

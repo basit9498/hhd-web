@@ -8,9 +8,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/app" element={<User />} />
+
           <Route
-            path="/group"
+            path="/app"
             element={
               <PrivateRoute>
                 <User />

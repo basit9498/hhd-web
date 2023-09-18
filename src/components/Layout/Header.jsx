@@ -1,12 +1,23 @@
 import React from "react";
-import Avatar from "../../assets/images/User.png";
+import { useUserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const { user, logout } = useUserContext();
+  const navigation = useNavigate();
+
+  const logoutHandler = () => {
+    logout();
+    navigation("/");
+  };
   return (
     <>
       <header className="header_section">
-        <div>
-          <img src={Avatar} alt="user-avatar" />
+        <div className="user_detail">
+          <img src={user?.picture?.data?.url} alt="user-avatar" />
+          <button className="button" onClick={logoutHandler}>
+            Logout
+          </button>
         </div>
       </header>
     </>

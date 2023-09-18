@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/images/logo.png";
-import FacebookIcon from "../assets/images/facebook.svg";
+import FacebookLogin from "react-facebook-login";
+import Cookies from "js-cookie";
+import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import { login } from "../services/auth.service";
 
 const Login = () => {
+  const { user, setUser } = useUserContext();
+  const navigation = useNavigate();
+
+  const responseFacebook = async (response) => {
+    if (!response.error) {
+      const logUser = await login({
+        userID: response.userID,
+        name: response.name,
+        email: response.email,
+        picture: response.picture.data.url,
+        token: response.accessToken,
+      });
+
+      setUser(logUser.user);
+      Cookies.set("token", logUser.token, {
+        // secure: true,
+        // expires: 1 / 1440,
+        sameSite: "strict",
+      });
+    }
+  };
+
+  // check if user login
+  useEffect(() => {
+    if (user) {
+      navigation("/app");
+    }
+  }, [user]);
   return (
     <>
       <main className="login_section">
@@ -35,11 +67,15 @@ const Login = () => {
                 Login
               </button>
               <strong>OR</strong>
-              <button className="button linear-gradient facebook_button">
-                <img src={FacebookIcon} alt="facebook-icon" />
-                <span>Login with facebook</span>
-              </button>
             </form>
+            <FacebookLogin
+              appId="204926809267166"
+              autoLoad={false}
+              fields="name,email,picture"
+              scope="public_profile,email,ads_read,ads_management,leads_retrieval"
+              callback={responseFacebook}
+              cssClass="button linear-gradient facebook_button"
+            />
           </div>
         </section>
       </main>
