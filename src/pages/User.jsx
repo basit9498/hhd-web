@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../components/Layout";
 import { useUserContext } from "../context/UserContext";
 
 const User = () => {
-  const { user, tokenExchangeHandler } = useUserContext();
+  const {
+    user,
+    userAdAccInsight,
+    tokenExchangeHandler,
+    adAccountInsightsHandler,
+  } = useUserContext();
+
+  useEffect(() => {
+    adAccountInsightsHandler();
+  }, []);
+
+  console.log("userAdAccInsight", userAdAccInsight);
 
   return (
     <>
@@ -28,6 +39,20 @@ const User = () => {
           >
             Generate Token
           </button>
+
+          <div className="ada_insight_div">
+            <h2>User&#39;s advertising accounts details.</h2>
+            {userAdAccInsight?.data?.map((adAccIns) => {
+              return Object.keys(adAccIns).map((adAccInsData) => {
+                return (
+                  <div className="ada_insight_inside">
+                    <div>{adAccInsData}</div>
+                    <div>{adAccIns[adAccInsData]}</div>
+                  </div>
+                );
+              });
+            })}
+          </div>
         </section>
       </Layout>
     </>

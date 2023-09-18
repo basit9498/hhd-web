@@ -1,12 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { userMe } from "../services/user.service";
+import { userAdAccountInsights, userMe } from "../services/user.service";
 import { fbExchangeToken } from "../services/auth.service";
 
 const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userAdAccInsight, setUserAdAccInsight] = useState(null);
 
   const checkLogin = async () => {
     try {
@@ -28,13 +29,21 @@ export const UserProvider = ({ children }) => {
   const tokenExchangeHandler = async () => {
     try {
       const getUpdateToken = await fbExchangeToken();
-      Cookies.set("token", getUpdateToken?.token, {
-        // secure: true,
-        // expires: 1 / 1440,
-        sameSite: "strict",
-      });
+      if (getUpdateToken?.token) {
+        Cookies.set("token", getUpdateToken?.token, {
+          sameSite: "strict",
+        });
+        await adAccountInsightsHandler();
+      }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const adAccountInsightsHandler = async () => {
+    const response = await userAdAccountInsights();
+    if (response?.data) {
+      setUserAdAccInsight(response?.data);
     }
   };
 
@@ -42,8 +51,12 @@ export const UserProvider = ({ children }) => {
     user,
     setUser,
 
+    userAdAccInsight,
+    setUserAdAccInsight,
+
     logout,
     tokenExchangeHandler,
+    adAccountInsightsHandler,
   };
 
   //
