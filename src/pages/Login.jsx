@@ -11,7 +11,6 @@ const Login = () => {
   const navigation = useNavigate();
 
   const responseFacebook = async (response) => {
-    console.log("response", response);
     if (!response.error && response.status !== "unknown") {
       const logUser = await login({
         userID: response.userID,
@@ -21,11 +20,8 @@ const Login = () => {
         token: response.accessToken,
       });
 
-      console.log("response", response);
-
       setUser(logUser.user);
       Cookies.set("token", logUser.token, {
-        // secure: true,
         expires: response.expiresIn / 86400,
         sameSite: "strict",
       });

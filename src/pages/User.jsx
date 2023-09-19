@@ -14,8 +14,6 @@ const User = () => {
     adAccountInsightsHandler();
   }, []);
 
-  console.log("userAdAccInsight", userAdAccInsight);
-
   return (
     <>
       <Layout>
