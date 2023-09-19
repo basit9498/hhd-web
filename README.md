@@ -10,11 +10,11 @@
 
 ### Nodejs Version
 
-14.17.3
+18.14.2
 
 ### Npm Version
 
-6.14.13
+9.5.0
 
 ## Install Dependency
 
