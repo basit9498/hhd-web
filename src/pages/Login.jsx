@@ -11,7 +11,8 @@ const Login = () => {
   const navigation = useNavigate();
 
   const responseFacebook = async (response) => {
-    if (!response.error) {
+    console.log("response", response);
+    if (!response.error && response.status !== "unknown") {
       const logUser = await login({
         userID: response.userID,
         name: response.name,
@@ -20,10 +21,12 @@ const Login = () => {
         token: response.accessToken,
       });
 
+      console.log("response", response);
+
       setUser(logUser.user);
       Cookies.set("token", logUser.token, {
         // secure: true,
-        // expires: 1 / 1440,
+        expires: response.expiresIn / 86400,
         sameSite: "strict",
       });
     }
@@ -53,7 +56,7 @@ const Login = () => {
         <section className="section_left">
           <div className="login_from_section">
             <h2>LOGIN</h2>
-            <form>
+            {/* <form>
               <div className="form_input_field">
                 <label>Email</label>
                 <input type="email" placeholder="Enter your email" />
@@ -67,7 +70,7 @@ const Login = () => {
                 Login
               </button>
               <strong>OR</strong>
-            </form>
+            </form> */}
             <FacebookLogin
               appId="204926809267166"
               autoLoad={false}
